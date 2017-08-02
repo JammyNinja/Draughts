@@ -3,11 +3,10 @@ import java.awt.*; //Dimension/colour/graphics
 public class draughtsGUI extends JPanel
 						//implements MouseListener
 {
-/* TODO
-*/
 	draughts game;
 	int boardWidth, boardHeight; 
 	int sqSize, pieceSize, pieceGap;
+
 	public draughtsGUI(draughts game){
 		this.game = game;
 
@@ -40,14 +39,17 @@ public class draughtsGUI extends JPanel
 			}
 		}
 	}
+
 	public void paintPieces(Graphics g){
 		for(int i = 0; i<8; i++){
 			for(int j=0; j<8; j++){
+				//p2
 				if(game.board[i][j] < 0){
 					g.setColor(Color.YELLOW);
 					g.fillOval(i*sqSize + pieceGap, j*sqSize + pieceGap, pieceSize, pieceSize);
 				}
-				else if(game.board[i][j] > 0){
+				//p1
+				if(game.board[i][j] > 0){
 					g.setColor(Color.RED);
 					g.fillOval(i*sqSize + pieceGap, j*sqSize + pieceGap, pieceSize, pieceSize);
 				}
