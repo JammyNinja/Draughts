@@ -10,6 +10,10 @@ public class draughtsGUI extends JPanel
 	draughts game;
 	int boardWidth, boardHeight; 
 	int sqSize, pieceSize, pieceGap;
+	//move making variables
+	boolean piecePicked = false;
+	Point moveFrom;
+	int moveFromX,moveFromY;
 
 	public draughtsGUI(draughts game){
 		this.game = game;
@@ -85,6 +89,17 @@ public class draughtsGUI extends JPanel
 		int x = m.getX() / sqSize;
 		int y = m.getY() / sqSize;
 		game.print("I reckon square: ["+ x +"]["+ y +"].");
+//TRY a varaibale called square clicked
+		if(!piecePicked) {
+			moveFromX = x;
+			moveFromY = y;
+			piecePicked = true;
+		}
+		//we now have the destination
+		else {
+			int success = game.tryMove(moveFromX, moveFromY, x, y);
+			if (success == 0) piecePicked = false;
+		}
 	}
 
 	//UNUSED listener functions
