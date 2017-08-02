@@ -1,6 +1,9 @@
 import javax.swing.*; //JPanel/containers/scrollpane
 import java.awt.*; //Dimension/colour/graphics
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 public class draughtsGUI extends JPanel
+						implements KeyListener
 						//implements MouseListener
 {
 	draughts game;
@@ -20,6 +23,12 @@ public class draughtsGUI extends JPanel
 		sqSize = (boardWidth + boardHeight) / 2 / 8; //average /8 
 		pieceGap = 10;
 		pieceSize = sqSize - 2 * pieceGap; //oof hardcode
+
+		//get wet for input
+		addKeyListener(this);
+		setFocusable(true);
+
+
 		f.initialise(this);
 	}
 
@@ -56,6 +65,20 @@ public class draughtsGUI extends JPanel
 			}
 		}
 	}
+
+	public void keyReleased(KeyEvent e){}
+	public void keyTyped(KeyEvent e){}
+	public void keyPressed(KeyEvent e){
+		switch(e.getKeyCode()){
+			case KeyEvent.VK_SPACE:
+				game.tryMove(3,2,2,1);
+			break;
+			case KeyEvent.VK_ESCAPE:
+			System.exit(0);
+			break;
+		}
+	}
+
 }
 
 

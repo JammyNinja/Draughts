@@ -1,10 +1,10 @@
 public class draughts {
 /* TODO
-	maybe listen to keys for escaping?/reset game
+	turns
 	kings
 	Mouselistener moving pieces
 	moving rules
-
+	consider board class
 	wrap head around row/cols i/j - maybe sooner than later?!
 */
 	static draughts game;
@@ -19,7 +19,7 @@ public class draughts {
 	public draughts(){
 		setupBoard();
 	}
-	
+
 	//fill board array, -1 for p2, 1 for p1, kings -2,+2
 	private void setupBoard(){
 		for(int col = 0; col<8; col++){
@@ -48,4 +48,42 @@ public class draughts {
 			}
 		}
 	}
+
+	public int tryMove(int x1,int y1, int x2, int y2){
+		//return 0 if success, or maybe vary depending on why not
+		if(board[x2][y2] != 0) {
+			print("the square " + x2+ " , "+y2+" is already occupied!");
+			return 1; //must move into an empty square
+		}move(x1,y1,x2,y2);
+		return 0;
+	}
+
+
+	//execute the move
+	void move(int x1, int y1, int x2, int y2){
+		//check whose turn it is - does it correspond with piece
+
+		int piece = board[x1][y1];
+		//remove piece from where it was
+		board[x1][y1] = 0;
+		//put it where it's going
+		board[x2][y2] = piece;
+
+		//remove killed pieces
+		gui.repaint();
+	}
+
+	void print(String text){
+		System.out.println(text);
+	}
 }
+
+
+
+
+
+
+
+
+
+
