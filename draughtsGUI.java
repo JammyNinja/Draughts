@@ -2,9 +2,10 @@ import javax.swing.*; //JPanel/containers/scrollpane
 import java.awt.*; //Dimension/colour/graphics
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 public class draughtsGUI extends JPanel
-						implements KeyListener
-						//implements MouseListener
+						implements KeyListener, MouseListener
 {
 	draughts game;
 	int boardWidth, boardHeight; 
@@ -27,6 +28,7 @@ public class draughtsGUI extends JPanel
 		//get wet for input
 		addKeyListener(this);
 		setFocusable(true);
+		addMouseListener(this);
 
 
 		f.initialise(this);
@@ -66,8 +68,7 @@ public class draughtsGUI extends JPanel
 		}
 	}
 
-	public void keyReleased(KeyEvent e){}
-	public void keyTyped(KeyEvent e){}
+	// INPUT
 	public void keyPressed(KeyEvent e){
 		switch(e.getKeyCode()){
 			case KeyEvent.VK_SPACE:
@@ -78,7 +79,21 @@ public class draughtsGUI extends JPanel
 			break;
 		}
 	}
+	public void mouseClicked(MouseEvent m){
+		game.print(""+m.getPoint());
 
+		int x = m.getX() / sqSize;
+		int y = m.getY() / sqSize;
+		game.print("I reckon square: ["+ x +"]["+ y +"].");
+	}
+
+	//UNUSED listener functions
+	public void keyReleased(KeyEvent e){}
+	public void keyTyped(KeyEvent e){}
+	public void mouseExited(MouseEvent m){}
+	public void mouseEntered(MouseEvent m){}
+	public void mouseReleased(MouseEvent m){}
+	public void mousePressed(MouseEvent m){}
 }
 
 
