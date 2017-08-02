@@ -12,7 +12,6 @@ public class draughtsGUI extends JPanel
 	int sqSize, pieceSize, pieceGap;
 	//move making variables
 	boolean piecePicked = false;
-	Point moveFrom;
 	int moveFromX,moveFromY;
 
 	public draughtsGUI(draughts game){
@@ -48,9 +47,13 @@ public class draughtsGUI extends JPanel
 		g.setColor(Color.WHITE);
 		for(int i = 0; i<=8; i++){
 			for(int j=0; j<=8; j++){
+				Color startColour = g.getColor();
+				if(piecePicked && moveFromX == i && moveFromY == j){
+					g.setColor(Color.CYAN);
+				}
 				g.fillRect(i*sqSize,j*sqSize, sqSize,sqSize);
-				if(g.getColor() == Color.BLACK) g.setColor(Color.WHITE);
-				else g.setColor(Color.BLACK);
+				if(startColour != Color.BLACK) g.setColor(Color.BLACK);
+				else g.setColor(Color.WHITE);
 			}
 		}
 	}
@@ -83,6 +86,7 @@ public class draughtsGUI extends JPanel
 			break;
 		}
 	}
+	//click the same square again to select it
 	public void mouseClicked(MouseEvent m){
 		game.print(""+m.getPoint());
 
@@ -100,6 +104,7 @@ public class draughtsGUI extends JPanel
 			int success = game.tryMove(moveFromX, moveFromY, x, y);
 			if (success == 0) piecePicked = false;
 		}
+		repaint();
 	}
 
 	//UNUSED listener functions

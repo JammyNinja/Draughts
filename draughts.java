@@ -54,7 +54,8 @@ public class draughts {
 		if(board[x2][y2] != 0) {
 			print("the square " + x2+ " , "+y2+" is already occupied!");
 			return 1; //must move into an empty square
-		}move(x1,y1,x2,y2);
+		}
+		else move(x1,y1,x2,y2);
 		return 0;
 	}
 
