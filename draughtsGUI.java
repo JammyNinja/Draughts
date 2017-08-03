@@ -88,16 +88,20 @@ public class draughtsGUI extends JPanel
 	}
 	//click the same square again to select it
 	public void mouseClicked(MouseEvent m){
-		game.print(""+m.getPoint());
-
 		int x = m.getX() / sqSize;
 		int y = m.getY() / sqSize;
-		game.print("I reckon square: ["+ x +"]["+ y +"].");
-//TRY a varaibale called square clicked
-		if(!piecePicked) {
-			moveFromX = x;
-			moveFromY = y;
-			piecePicked = true;
+		game.print("Clicked square: ["+ x +"]["+ y +"].");
+		int piece = game.board[x][y];
+		if(piecePicked && x == moveFromX && y == moveFromY){ //double clicked piece
+			piecePicked = false; //unhighlight piece
+		}
+		else if(!piecePicked) {
+			//check whose turn it is
+			if((piece > 0 && game.turn == 1) || (piece < 0 && game.turn == 2)){			
+				moveFromX = x;
+				moveFromY = y;
+				piecePicked = true;
+			}
 		}
 		//we now have the destination
 		else {

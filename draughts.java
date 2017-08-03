@@ -2,7 +2,6 @@ public class draughts {
 /* TODO
 	turns
 	kings
-	Mouselistener moving pieces
 	moving rules
 	consider board class
 	wrap head around row/cols i/j - maybe sooner than later?!
@@ -10,6 +9,7 @@ public class draughts {
 	static draughts game;
 	static draughtsGUI gui;
 	int[][] board = new int[8][8];
+	int turn; //1 or 2
 
 	public static void main(String args[]){
 		System.out.println("welcome to draughts game");
@@ -18,6 +18,7 @@ public class draughts {
 	}
 	public draughts(){
 		setupBoard();
+		startGame();
 	}
 
 	//fill board array, -1 for p2, 1 for p1, kings -2,+2
@@ -49,6 +50,10 @@ public class draughts {
 		}
 	}
 
+	public void startGame(){
+		turn = 1;
+	}
+
 	public int tryMove(int x1,int y1, int x2, int y2){
 		//return 0 if success, or maybe vary depending on why not
 		if(board[x2][y2] != 0) {
@@ -70,6 +75,9 @@ public class draughts {
 		//put it where it's going
 		board[x2][y2] = piece;
 
+		//flip turn
+		if(turn == 1) turn = 2;
+		else turn = 1;
 		//remove killed pieces
 		gui.repaint();
 	}
