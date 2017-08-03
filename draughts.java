@@ -1,6 +1,5 @@
 public class draughts {
 /* TODO
-	turns
 	kings
 	moving rules
 	consider board class
@@ -53,16 +52,23 @@ public class draughts {
 	public void startGame(){
 		turn = 1;
 	}
-
+	//way more validation needed
 	public int tryMove(int x1,int y1, int x2, int y2){
+		int sqFrom 	= board[x1][y1];
+		int sqTo	= board[x2][y2];
 		//return 0 if success, or maybe vary depending on why not
-		if(board[x2][y2] != 0) {
-			print("the square " + x2+ " , "+y2+" is already occupied!");
+		if(sqTo != 0) {
+			print("the square ["+x2+"]["+y2+"] is already occupied!");
 			return 1; //must move into an empty square
+		}
+		else if((turn == 2 && y2 <= y1) || (turn == 1 && y2 >= y1) ){
+			print("Must move forwards!");
+			return 2;
 		}
 		else move(x1,y1,x2,y2);
 		return 0;
 	}
+
 
 
 	//execute the move

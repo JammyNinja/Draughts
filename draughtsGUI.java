@@ -106,6 +106,7 @@ public class draughtsGUI extends JPanel
 		//we now have the destination
 		else {
 			int success = game.tryMove(moveFromX, moveFromY, x, y);
+			//success 0 is successful move
 			if (success == 0) piecePicked = false;
 		}
 		repaint();
