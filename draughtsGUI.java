@@ -79,7 +79,6 @@ public class draughtsGUI extends JPanel
 	public void keyPressed(KeyEvent e){
 		switch(e.getKeyCode()){
 			case KeyEvent.VK_SPACE:
-				game.tryMove(3,2,2,1);
 			break;
 			case KeyEvent.VK_ESCAPE:
 			System.exit(0);
@@ -105,7 +104,7 @@ public class draughtsGUI extends JPanel
 		}
 		//we now have the destination
 		else {
-			int success = game.tryMove(moveFromX, moveFromY, x, y);
+			int success = game.tryMove(moveFromX, moveFromY, x, y, piece);
 			//success 0 is successful move
 			if (success == 0) piecePicked = false;
 		}

@@ -1,3 +1,4 @@
+import java.lang.Math; //abs
 public class draughts {
 /* TODO
 	kings
@@ -53,7 +54,16 @@ public class draughts {
 		turn = 1;
 	}
 	//way more validation needed
-	public int tryMove(int x1,int y1, int x2, int y2){
+	public int tryMove(int x1,int y1, int x2, int y2, int piece){
+		//things to validate for:
+		//square empty
+		//move forwards - unless king!
+		//is it an overtake
+		//not overtaking your own piece
+		//are we forced to overtake elsewhere
+
+
+		//consider moviing if conditions into separate functions - maybe just the worst ones
 		int sqFrom 	= board[x1][y1];
 		int sqTo	= board[x2][y2];
 		//return 0 if success, or maybe vary depending on why not
@@ -61,7 +71,7 @@ public class draughts {
 			print("the square ["+x2+"]["+y2+"] is already occupied!");
 			return 1; //must move into an empty square
 		}
-		else if((turn == 2 && y2 <= y1) || (turn == 1 && y2 >= y1) ){
+		else if(Math.abs(piece) < 2 && ((turn == 2 && y2 <= y1) || (turn == 1 && y2 >= y1)) ){
 			print("Must move forwards!");
 			return 2;
 		}
@@ -73,13 +83,20 @@ public class draughts {
 
 	//execute the move
 	void move(int x1, int y1, int x2, int y2){
-		//check whose turn it is - does it correspond with piece
-
 		int piece = board[x1][y1];
 		//remove piece from where it was
 		board[x1][y1] = 0;
 		//put it where it's going
 		board[x2][y2] = piece;
+
+		//if it was overtake then delete that piece too
+		if (Math.abs(x2-x1) == 2 && Math.abs(y2-y1) == 2) {
+			//average the coords to find overtaken sq
+			//perhaps math could do that
+			int deadX = (x1+x2)/2; 
+			int deadY = (y1+y2)/2;
+			board[deadX][deadY] = 0;
+		}
 
 		//flip turn
 		if(turn == 1) turn = 2;
