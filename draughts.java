@@ -1,8 +1,9 @@
 import java.lang.Math; //abs
 public class draughts {
 /* TODO
-	kings
 	moving rules
+	stop it from overtaking self
+	kings
 	consider board class
 	wrap head around row/cols i/j - maybe sooner than later?!
 */
@@ -68,14 +69,27 @@ public class draughts {
 		int sqTo	= board[x2][y2];
 		//return 0 if success, or maybe vary depending on why not
 		if(sqTo != 0) {
-			print("the square ["+x2+"]["+y2+"] is already occupied!");
+			print("The square ["+x2+"]["+y2+"] is already occupied!");
 			return 1; //must move into an empty square
 		}
 		else if(Math.abs(piece) < 2 && ((turn == 2 && y2 <= y1) || (turn == 1 && y2 >= y1)) ){
 			print("Must move forwards!");
 			return 2;
 		}
-		else move(x1,y1,x2,y2);
+		//simple overtake
+		else if (Math.abs(x2-x1) == 2 && Math.abs(y2-y1) == 2) {
+			int victimX = (x1+x2)/2; 
+			int victimY = (y1+y2)/2;
+			int victimPiece = board[victimX][victimY];
+
+			print("simple overtake attempt! piece: " + victimPiece);
+			//only allow if not overtaking own team
+			if((victimPiece > 0 && turn == 1) || (victimPiece< 0 && turn == 2)){
+				print("Can't overtake your own piece!");
+				return 3;
+			}
+		}
+		move(x1,y1,x2,y2);
 		return 0;
 	}
 
